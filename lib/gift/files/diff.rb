@@ -3,15 +3,16 @@
 #changed in between both the commits
  
 class Diff
-  attr_accessor :old_commit, :new_commit, :files
-  def intialize(oldc, newc)
+  attr_accessor :old_commit, :new_commit, :files, :git_location
+  def initialize(oldc, newc, git_location)
     @old_commit = oldc
     @new_commit = newc
+    @git_location = git_location
     @files = self.files_diffed
   end
 
   def files_diffed
-    Git::Lib.new.diff @old_commit, @new_commit    
+    Git::Lib.new.delta @old_commit, @new_commit, @git_location    
   end
 
   def old_commit=(old_commit)
@@ -20,6 +21,6 @@ class Diff
   end
   def new_commit=(new_commit)
     @new_commit = new_commit
-    @files+ = self.files_diffed
+    @files += self.files_diffed
   end
 end
