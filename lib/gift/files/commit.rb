@@ -5,6 +5,10 @@ require_relative 'diff.rb'
 
 class Commit
   attr_accessor :id, :git_location
+  def self.last_commit(git_location)
+    Git::Lib.new.sha_last_commit git_location
+  end
+  
   def initialize(id, git_location)
     @id = id
     @git_location = git_location
